@@ -2,11 +2,12 @@ import React, { useContext, useEffect, useState } from 'react'
 import { checkOutContext } from '../CONTEXT/Context'
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
-import WebApp from "@twa-dev/sdk"
+// import WebApp from "@twa-dev/sdk"
 
 function Checkout() {
-    const [user, setuser] = useState(null);
+    const [userData, setuserData] = useState(null);
     const { checkoutNavigated, setCheckOutNavigated } = useContext(checkOutContext);
+    const [chat, setChat] = useState(null);
     const navigate = useNavigate();
     useEffect(() => {
         if (!checkoutNavigated) {
@@ -57,8 +58,12 @@ function Checkout() {
         //     setCheckOutNavigated(false);
         // };
 
-        if (WebApp.initDataUnsafe.user) {
-            setuser(WebApp.initDataUnsafe.user);
+        if (window.Telegram.WebApp) {
+            const user = window.Telegram.WebApp.initDataUnsafe?.user || null;
+            setuserData(user);
+            if (window.Telegram.WebApp.initDataUnsafe?.chat) {
+                setChat(window.Telegram.WebApp.initDataUnsafe.chat.id);
+            }
         }
 
         return () => {
@@ -68,7 +73,15 @@ function Checkout() {
 
     }, []);
     return (
-        <div>User Id : {user.id}</div>
+        <>
+            {/* // <div>User Id : {user.id}</div> */}
+            {
+                user ? <div>User id : {userData}</div> : <div>Not Found User Id</div>
+            }
+            {
+                chat ? <div>Chat id : {chat}</div> : <div>Not Found Chat Id</div>
+            }
+        </>
     )
 }
 
