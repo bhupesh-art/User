@@ -31,30 +31,38 @@ function Checkout() {
         //     document.body.removeChild(script);
         // }
 
-        let script;
-        if (!window.Telegram) {
-            script = document.createElement("script");
-            script.src = "https://telegram.org/js/telegram-web-app.js";
-            script.async = true;
+        // let script;
+        // if (!window.Telegram) {
+        //     script = document.createElement("script");
+        //     script.src = "https://telegram.org/js/telegram-web-app.js";
+        //     script.async = true;
 
-            script.onload = () => {
-                const tgUser = window.Telegram?.WebApp?.initDataUnsafe?.user;
-                if (tgUser) setuser(tgUser.id);
-            };
+        //     script.onload = () => {
+        //         const tgUser = window.Telegram?.WebApp?.initDataUnsafe?.user;
+        //         if (tgUser) setuser(tgUser.id);
+        //     };
 
-            document.body.appendChild(script);
+        //     document.body.appendChild(script);
 
 
-        }
-        else {
-            const tgUser = window.Telegram?.WebApp?.initDataUnsafe?.user;
-            if (tgUser) setuser(tgUser.id);
+        // }
+        // else {
+        //     const tgUser = window.Telegram?.WebApp?.initDataUnsafe?.user;
+        //     if (tgUser) setuser(tgUser.id);
+        // }
+
+        // return () => {
+        //     if (script && document.body.contains(script)) document.body.removeChild(script);
+        //     setCheckOutNavigated(false);
+        // };
+
+        if (WebApp.initDataUnsafe.user) {
+            setuser(WebApp.initDataUnsafe.user);
         }
 
         return () => {
-            if (script && document.body.contains(script)) document.body.removeChild(script);
             setCheckOutNavigated(false);
-        };
+        }
 
 
     }, []);
