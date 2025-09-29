@@ -10,6 +10,7 @@ function Products({ query }) {
     const { products, setProducts } = useContext(productContext);
     const [filteredProducts, setFilteredProducts] = React.useState([])
     useEffect(() => {
+        console.log(BACKEND_URL);
         (async function fetchProducts() {
             const response = await axios.get(`${BACKEND_URL}/product/all`);
             console.log(response.data.products);
