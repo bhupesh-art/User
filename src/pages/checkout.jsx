@@ -60,13 +60,17 @@ function Checkout() {
 
         const checkTelegram = () => {
             if (window.Telegram.WebApp) {
+                console.log(true);
                 const user = window.Telegram.WebApp.initDataUnsafe?.user || null;
                 setuserData(user);
                 if (window.Telegram.WebApp.initDataUnsafe?.chat) {
                     setChat(window.Telegram.WebApp.initDataUnsafe.chat.id);
                 }
+                console.log("UserData : ", userData);
+
             } else {
                 // Try again in 100ms until Telegram is ready
+                console.log(false);
                 setTimeout(checkTelegram, 100);
             }
         }
