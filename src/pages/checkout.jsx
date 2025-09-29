@@ -17,7 +17,7 @@ function Checkout() {
         (async function () {
             const BACKEND_URL = import.meta.env.VITE_API_URL;
             try {
-                const response = await axios.post(`${BACKEND_URL}/test`, user);
+                const response = await axios.post(`${BACKEND_URL}/api/test`, user);
                 console.log(response.data);
             } catch (err) {
                 console.error(`ERROR IN TELEGRAM : ${err}`);

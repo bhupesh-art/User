@@ -18,7 +18,7 @@ function Product() {
             try {
                 setLoading(true);
                 const response = await axios.get(
-                    `${BACKEND_URL}/product/item/${productId}`
+                    `${BACKEND_URL}/api/product/item/${productId}`
                 );
                 setProductInfo(response.data.product ?? null);
             } catch (err) {

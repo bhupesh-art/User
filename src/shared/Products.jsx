@@ -12,7 +12,7 @@ function Products({ query }) {
     useEffect(() => {
         console.log(BACKEND_URL);
         (async function fetchProducts() {
-            const response = await axios.get(`${BACKEND_URL}/product/all`);
+            const response = await axios.get(`${BACKEND_URL}/api/product/all`);
             console.log("full response :", response.data);
             const productsData = response.data?.products || [];
             setProducts(productsData);
