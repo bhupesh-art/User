@@ -74,7 +74,7 @@ function Product({ pId, name, image, price, description, categories = [] }) {
                 <p className="text-sm text-slate-600 leading-relaxed line-clamp-3">{description}</p>
 
                 {/* Categories */}
-                {/* <div className="pt-2">
+                <div className="pt-2">
                     <h4 className="text-xs text-slate-500 uppercase tracking-wider mb-2">Categories</h4>
 
                     <div className="flex flex-wrap gap-2 items-center">
@@ -103,7 +103,7 @@ function Product({ pId, name, image, price, description, categories = [] }) {
                             })
                         )}
                     </div>
-                </div> */}
+                </div>
             </div>
         </article>
     );
