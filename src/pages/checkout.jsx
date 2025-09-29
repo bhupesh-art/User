@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { checkOutContext } from '../CONTEXT/Context'
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+import WebApp from "@twa-dev/sdk"
 
 function Checkout() {
     const [user, setuser] = useState(null);
@@ -67,7 +68,7 @@ function Checkout() {
 
     }, []);
     return (
-        <div>User Id : {user}</div>
+        <div>User Id : {user.id}</div>
     )
 }
 
