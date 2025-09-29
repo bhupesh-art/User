@@ -58,13 +58,20 @@ function Checkout() {
         //     setCheckOutNavigated(false);
         // };
 
-        if (window.Telegram.WebApp) {
-            const user = window.Telegram.WebApp.initDataUnsafe?.user || null;
-            setuserData(user);
-            if (window.Telegram.WebApp.initDataUnsafe?.chat) {
-                setChat(window.Telegram.WebApp.initDataUnsafe.chat.id);
+        const checkTelegram = () => {
+            if (window.Telegram.WebApp) {
+                const user = window.Telegram.WebApp.initDataUnsafe?.user || null;
+                setuserData(user);
+                if (window.Telegram.WebApp.initDataUnsafe?.chat) {
+                    setChat(window.Telegram.WebApp.initDataUnsafe.chat.id);
+                }
+            } else {
+                // Try again in 100ms until Telegram is ready
+                setTimeout(checkTelegram, 100);
             }
         }
+
+        checkTelegram();
 
         return () => {
             setCheckOutNavigated(false);
