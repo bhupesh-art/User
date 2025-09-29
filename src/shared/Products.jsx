@@ -13,9 +13,10 @@ function Products({ query }) {
         console.log(BACKEND_URL);
         (async function fetchProducts() {
             const response = await axios.get(`${BACKEND_URL}/product/all`);
-            console.log(response.data.products);
-            setProducts(response.data.products);
-            setFilteredProducts(response.data.products);
+            console.log("full response :", response.data);
+            const productsData = response.data?.products || [];
+            setProducts(productsData);
+            setFilteredProducts(productsData);
         })();
     }, [BACKEND_URL])
 
