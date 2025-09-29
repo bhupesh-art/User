@@ -1,34 +1,64 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { checkOutContext } from '../CONTEXT/Context'
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 function Checkout() {
+    const [user, setuser] = useState(null);
     const { checkoutNavigated, setCheckOutNavigated } = useContext(checkOutContext);
     const navigate = useNavigate();
     useEffect(() => {
         if (!checkoutNavigated) {
             navigate("/", { replace: true });
+            return;
         }
-        const tg = window.Telegram.WebApp;
-        const user = tg.initDataUnsafe.user;
-        // const user = { user: "user" };
+        // const tg = window.Telegram.WebApp;
+        // const user = tg.initDataUnsafe.user;
+        // // const user = { user: "user" };
 
-        (async function () {
-            const BACKEND_URL = import.meta.env.VITE_API_URL;
-            try {
-                const response = await axios.post(`${BACKEND_URL}/api/test`, user);
-                console.log(response.data);
-            } catch (err) {
-                console.error(`ERROR IN TELEGRAM : ${err}`);
-            }
-        })()
+        // (async function () {
+        //     const BACKEND_URL = import.meta.env.VITE_API_URL;
+        //     try {
+        //         const response = await axios.post(`${BACKEND_URL}/api/test`, user);
+        //         console.log(response.data);
+        //     } catch (err) {
+        //         console.error(`ERROR IN TELEGRAM : ${err}`);
+        //     }
+        // })()
+
+        // const handleTasks = () => {
+        //     setCheckOutNavigated(false);
+        //     document.body.removeChild(script);
+        // }
+
+        if (!window.Telegram) {
+            const script = document.createElement("script");
+            script.src = "https://telegram.org/js/telegram-web-app.js";
+            script.async = true;
+
+            script.onload = () => {
+                const tgUser = window.Telegram?.WebApp?.initDataUnsafe?.user;
+                if (tgUser) setuser(tgUser.id);
+            };
+
+            document.body.appendChild(script);
 
 
-        return () => { setCheckOutNavigated(false) };
+        }
+        else {
+            const tgUser = window.Telegram?.WebApp?.initDataUnsafe?.user;
+            if (tgUser) setuser(tgUser.id);
+        }
+
+        return () => {
+            if (script && document.body.contains(script)) document.body.removeChild(script);
+            setCheckOutNavigated(false);
+        };
+
+
     }, []);
     return (
-        <div>checkout page </div>
+        <div>User Id : {user}</div>
     )
 }
 
