@@ -76,7 +76,7 @@ function Checkout() {
         <>
             {/* // <div>User Id : {user.id}</div> */}
             {
-                user ? <div>User id : {userData}</div> : <div>Not Found User Id</div>
+                userData ? <div>User id : {userData}</div> : <div>Not Found User Id</div>
             }
             {
                 chat ? <div>Chat id : {chat}</div> : <div>Not Found Chat Id</div>
